@@ -6,6 +6,6 @@ public class FacebookMessenger implements MessagingApp {
 
     @Override
     public void sendMessage() {
-        System.out.println("Sending message from Facebook Messenger.");
+        System.out.println("Sending message{s} from Facebook Messenger.");
     }
 }

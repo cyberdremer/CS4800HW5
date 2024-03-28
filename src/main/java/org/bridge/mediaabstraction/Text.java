@@ -1,13 +1,14 @@
 package org.bridge.mediaabstraction;
 
-import org.bridge.Media;
+import org.bridge.interfaces.Media;
 import org.bridge.interfaces.MessageType;
 import org.bridge.interfaces.MessagingApp;
 
 import java.util.ArrayList;
 
 public class Text implements MessageType {
-    MessagingApp messagingApp;
+    private MessagingApp messagingApp;
+    private ArrayList<Media> mediaArrayList = new ArrayList<>();
     @Override
     public void setMessageApp(MessagingApp app) {
         this.messagingApp = app;
@@ -15,9 +16,19 @@ public class Text implements MessageType {
     }
 
     @Override
-    public void setContent(Media media) {
+    public void setContent(Media content) {
+        if(content instanceof TextContent){
+            mediaArrayList.add(content);
+        }
+        else{
+            throw new IllegalArgumentException();
+        }
+
+
 
     }
+
+
 
     @Override
     public String getMediaType() {
@@ -25,14 +36,17 @@ public class Text implements MessageType {
     }
 
     @Override
-    public ArrayList<MessageType> getContent() {
-        return null;
+    public ArrayList<Media> getContent() {
+        return this.mediaArrayList;
     }
 
     @Override
     public void sendMessage() {
         this.messagingApp.sendMessage();
-        System.out.println("Text message sent.");
+        for (Media media: this.mediaArrayList){
+            System.out.println(media.getMediaContent());
+        }
+        System.out.println("Text Message{s} sent.");
 
 
     }
